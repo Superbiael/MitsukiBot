@@ -33,7 +33,7 @@ bot.commands = new Discord.Collection();
    let prefix = '3!';
    let messageArray = message.content.split(" ");
    let cmd = messageArray[0]
-   let args = messageArray.slice(2);
+   let args = messageArray.slice(1);
    let commandfile = bot.commands.get(cmd.slice(prefix.length));
    if(commandfile) commandfile.run(bot,message,args);
 

@@ -1,25 +1,7 @@
 const Discord = require("discord.js");
 const bot = new Discord.Client({disableEveryone: true});
-const fs = require("fs");
-const prefix = "y!";
+const prefix = "3!";
 bot.commands = new Discord.Collection();
-
-   fs.readdir("./commands/", (err, files) => {
-
-   if(err) console.log(err);
-
-   let jsfile = files.filter(f => f.split(".").pop() === "js")
-   if(jsfile.legnth <= 0){
-   console.log("Couldn't find commands.");
-   return;
-  }
-
-   jsfile.forEach((f, i) =>{
-   let props = require(`./commands/${f}`);
-   console.log(`${f} loaded!`);
-   bot.commands.set(props.help.name, props);
-    });
-  });
 
    bot.on("ready", async () => {
    console.log(`${bot.user.username} is online on ${bot.guilds.size} servers!`);
@@ -52,11 +34,24 @@ bot.commands = new Discord.Collection();
       }
      }
 
-   // if (msg.startsWith (prefix + "scout")) {
-   //   number = 48;
-   //   imageNumber = Math.floor (Math.random() * (number)) + 1;
-   //   return botschannel.send ({files: ["./images/scout/" + imageNumber + ".png"]})
-   //  }
+   if(msg.startsWith (prefix + "ask")) {
+        if(!args[0]) return message.reply("oof");
+        let replies = ["That's right."];
+        let result = Math.floor((Math.random() * replies.length));
+        let question = args.slice(0).join(" ");
+
+        let ballembed = new Discord.RichEmbed()
+         .setColor("#f0930e")
+         .addField("Question:", question)
+         .addField("Answer:", replies[result]);
+        return message.channel.send(ballembed);
+      }
+
+   if (msg.startsWith (prefix + "scout")) {
+     number = 25;
+     imageNumber = Math.floor (Math.random() * (number)) + 1;
+     return message.channel.send ({files: ["./images/scout/" + imageNumber + ".png"]})
+    }
 
    if (msg.startsWith (prefix + "send")) {
      if (mention == null) { return; }
@@ -75,7 +70,7 @@ bot.commands = new Discord.Collection();
       let helpembed = new Discord.RichEmbed()
       .setDescription("Do not include < > when using commands. \nCommand phrases are not caps sensitive")
       .setColor("#f0930e")
-      .addField("Commands:","**3!mitsuki** *<question>* | Ask him anything. \n**3!send** *<@user> <message>* | Send a DM to the mentioned user\n**3!scout** | Solo Yolo \n**3!quote** | Random quote\n**3!say** *<message>* | Have the bot say anything you want")
+      .addField("Commands:","**3!ask** *<question>* | Ask him anything. \n**3!send** *<@user> <message>* | Send a DM to the mentioned user\n**3!scout** | Solo Yolo \n**3!quote** | Random quote\n**3!say** *<message>* | Have the bot say anything you want")
       .addField("Basic 3!commands:", "mafia (alias:maf)")
       .addField("Command phrases:", "Good night Mitsuki, Mippi")
     return message.channel.send(helpembed);
@@ -92,7 +87,7 @@ bot.commands = new Discord.Collection();
    if (msg.startsWith ("good night mitsuki")) {
     return botschannel.send("Tomorrow's gonna be fast paced too, one has to sleep properly.");
    }
-   //
+
    // if (msg.startsWith (prefix + "cat")) {
    //     number = 2;
    //     var random = Math.floor (Math.random() * (number)) + 1;
@@ -103,10 +98,9 @@ bot.commands = new Discord.Collection();
    // }
 
    if(cmd === `${prefix}mafia` || cmd === `${prefix}maf`){
-    return botschannel.send("maf maf");
+    return message.channel.send("maf maf");
    }
 
 });
 
-
- bot.login(process.env.token);
+bot.login(process.env.token);

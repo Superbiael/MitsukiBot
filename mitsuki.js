@@ -22,8 +22,8 @@ bot.commands = new Discord.Collection();
    msg = message.content.toLowerCase();
    mention = message.mentions.users.first();
 
-   // Redirect to specific channel
-   let botschannel = message.guild.channels.find(`name`, "bot-channel");
+//   Redirect to a specific channel
+   let botschannel = message.guild.channels.find(channel => channel.name === 'bot-channel');
    if(!botschannel) return;
 
    if(msg.startsWith (prefix + "quote")) {

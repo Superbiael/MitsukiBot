@@ -5,7 +5,7 @@ bot.commands = new Discord.Collection();
 
    bot.on("ready", async () => {
    console.log(`${bot.user.username} is online on ${bot.guilds.size} servers!`);
-   bot.user.setActivity("Associate", {type:0});
+   bot.user.setActivity("Associate", {type:"LISTENING"});
   });
 
    bot.on('message', message => {

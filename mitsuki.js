@@ -65,7 +65,7 @@ bot.commands = new Discord.Collection();
       message.delete().catch();
       return message.channel.send(botmessage);
     }
-
+      
    if(cmd ===`${prefix}help`){
       let helpembed = new Discord.RichEmbed()
       .setDescription("Do not include < > when using commands. \nCommand phrases are not caps sensitive")
@@ -88,14 +88,9 @@ bot.commands = new Discord.Collection();
     return botschannel.send("Tomorrow's gonna be fast paced too, one has to sleep properly.");
    }
 
-   // if (msg.startsWith (prefix + "cat")) {
-   //     number = 2;
-   //     var random = Math.floor (Math.random() * (number)) + 1;
-   //     switch (random) {
-   //       case 1: botschannel.send ({files:["./images/cat.png"]}); break;
-   //       case 2: botschannel.send ({files:["./images/eat_veggie.png"]}); break;
-   //     }
-   // }
+    if(cmd === `${prefix}cat`){
+       return message.channel.send ({files:["./images/nya.png"]});
+     }
 
    if(cmd === `${prefix}mafia` || cmd === `${prefix}maf`){
     return message.channel.send("maf maf");
